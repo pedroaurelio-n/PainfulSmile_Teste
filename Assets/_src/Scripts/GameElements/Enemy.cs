@@ -5,7 +5,13 @@ namespace PedroAurelio.PainfulSmile
 {
     public class Enemy : MonoBehaviour, IKillable, IPoolable
     {
+        public delegate void EnemyDefeated(int score);
+        public static event EnemyDefeated onEnemyDefeated;
+
         public Transform Target { get; set; }
+
+        [Header("Settings")]
+        [SerializeField] private int scoreOnDefeat;
 
         private IObjectPool<Enemy> _pool;
         private bool _isActiveOnPool;
@@ -30,6 +36,7 @@ namespace PedroAurelio.PainfulSmile
 
         public void Die()
         {
+            onEnemyDefeated?.Invoke(scoreOnDefeat);
             ReleaseFromPool();
         }
     }
