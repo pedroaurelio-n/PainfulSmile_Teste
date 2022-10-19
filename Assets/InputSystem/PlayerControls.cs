@@ -46,6 +46,15 @@ namespace PedroAurelio.PainfulSmile
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Shoot"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f9bd862-a6b4-4059-aa95-fa78a81b4717"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -114,6 +123,17 @@ namespace PedroAurelio.PainfulSmile
                     ""action"": ""Rotate"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""af4651b5-8188-4785-bbdb-4b1e35332e68"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Shoot"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -124,6 +144,7 @@ namespace PedroAurelio.PainfulSmile
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
             m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
             m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
+            m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -185,12 +206,14 @@ namespace PedroAurelio.PainfulSmile
         private IGameplayActions m_GameplayActionsCallbackInterface;
         private readonly InputAction m_Gameplay_Move;
         private readonly InputAction m_Gameplay_Rotate;
+        private readonly InputAction m_Gameplay_Shoot;
         public struct GameplayActions
         {
             private @PlayerControls m_Wrapper;
             public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Gameplay_Move;
             public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
+            public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -206,6 +229,9 @@ namespace PedroAurelio.PainfulSmile
                     @Rotate.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
                     @Rotate.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
                     @Rotate.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
+                    @Shoot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
+                    @Shoot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
+                    @Shoot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -216,6 +242,9 @@ namespace PedroAurelio.PainfulSmile
                     @Rotate.started += instance.OnRotate;
                     @Rotate.performed += instance.OnRotate;
                     @Rotate.canceled += instance.OnRotate;
+                    @Shoot.started += instance.OnShoot;
+                    @Shoot.performed += instance.OnShoot;
+                    @Shoot.canceled += instance.OnShoot;
                 }
             }
         }
@@ -224,6 +253,7 @@ namespace PedroAurelio.PainfulSmile
         {
             void OnMove(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
+            void OnShoot(InputAction.CallbackContext context);
         }
     }
 }

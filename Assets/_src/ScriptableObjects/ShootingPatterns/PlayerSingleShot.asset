@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b6e614c6ab7d880409914652b53e8733, type: 3}
+  m_Name: PlayerSingleShot
+  m_EditorClassIdentifier: 
+  BulletPrefab: {fileID: 831020926980066355, guid: 51f9312afc7be00418ab81f2e800b072, type: 3}
+  StartDelay: 0
+  SpinRate: 0
+  SideCount: 1
+  AngleOpening: 0
+  AngleOffset: 0
+  MissRate: 0
+  MissAngleOpening: 0
+  NeedInput: 1
+  IsAiming: 1
+  BulletSpeed: 9
+  FireRate: 1.2

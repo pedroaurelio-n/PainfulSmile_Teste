@@ -9,6 +9,7 @@ namespace PedroAurelio.PainfulSmile
     {
         private Move _move;
         private Rotate _rotate;
+        private ShootBullets _shoot;
 
         private PlayerControls _controls;
 
@@ -16,6 +17,7 @@ namespace PedroAurelio.PainfulSmile
         {
             _move = GetComponent<Move>();
             _rotate = GetComponent<Rotate>();
+            _shoot = GetComponentInChildren<ShootBullets>();
         }
 
         private void OnEnable()
@@ -30,6 +32,9 @@ namespace PedroAurelio.PainfulSmile
                 _controls.Gameplay.Rotate.performed += _rotate.SetRotationDirection;
                 _controls.Gameplay.Rotate.canceled += _rotate.SetRotationDirection;
 
+                _controls.Gameplay.Shoot.performed += _shoot.SetShootInput;
+                _controls.Gameplay.Shoot.canceled += _shoot.SetShootInput;
+
                 _controls.Enable();
             }
         }
@@ -41,6 +46,9 @@ namespace PedroAurelio.PainfulSmile
 
             _controls.Gameplay.Rotate.performed -= _rotate.SetRotationDirection;
             _controls.Gameplay.Rotate.canceled -= _rotate.SetRotationDirection;
+
+            _controls.Gameplay.Shoot.performed -= _shoot.SetShootInput;
+            _controls.Gameplay.Shoot.canceled -= _shoot.SetShootInput;
             
             _controls.Disable();
         }

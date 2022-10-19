@@ -11,6 +11,7 @@ namespace PedroAurelio.PainfulSmile
         [Header("Settings")]
         [SerializeField] private Transform target;
         [SerializeField] private float minDistanceFromTarget;
+        [SerializeField] private bool startLookingAtTarget;
         [SerializeField, Range(0f, 1f)] private float rotationThreshold = 0.1f;
 
         private Move _move;
@@ -29,6 +30,12 @@ namespace PedroAurelio.PainfulSmile
 
             if (minDistanceFromTarget == 0f)
                 _move.SetMovementInput(true);
+        }
+
+        private void OnEnable()
+        {
+            if (startLookingAtTarget)
+                FaceTarget();
         }
 
         private void Update()
@@ -68,6 +75,13 @@ namespace PedroAurelio.PainfulSmile
                 _rotate.SetRotationDirection(RotationDirection.Left);
             else
                 _rotate.SetRotationDirection(RotationDirection.Right);
+        }
+
+        private void FaceTarget()
+        {
+            var directionToTarget = target.position - transform.position;
+            var angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }
     }
 }
