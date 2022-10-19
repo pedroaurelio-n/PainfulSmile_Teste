@@ -2,6 +2,7 @@ using UnityEngine;
 
 namespace PedroAurelio.PainfulSmile
 {
+    [RequireComponent(typeof(Player))]
     [RequireComponent(typeof(Move))]
     [RequireComponent(typeof(Rotate))]
     public class PlayerInput : MonoBehaviour

@@ -29,6 +29,14 @@ namespace PedroAurelio.PainfulSmile
         }
 
         public void SetRotationDirection(float direction) => _rotationDirection = direction;
+        public void SetRotationDirection(RotationDirection direction)
+        {
+            switch (direction)
+            {
+                case RotationDirection.Left: SetRotationDirection(1f); break;
+                case RotationDirection.Right: SetRotationDirection(-1f); break;
+            }
+        }
 
         public void SetRotationDirection(InputAction.CallbackContext ctx)
         {
@@ -39,5 +47,11 @@ namespace PedroAurelio.PainfulSmile
                 default: break;
             }
         }
+    }
+
+    public enum RotationDirection
+    {
+        Left,
+        Right
     }
 }
