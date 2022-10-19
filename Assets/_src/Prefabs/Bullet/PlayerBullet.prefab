@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee97f90f2dd8c954cae614aee0b9a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 2
+  lifeTime: 3.5
 --- !u!114 &1680645309400426900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contactLayers:
     serializedVersion: 2
-    m_Bits: 129
+    m_Bits: 128
 --- !u!50 &831020926980066354
 Rigidbody2D:
   serializedVersion: 4

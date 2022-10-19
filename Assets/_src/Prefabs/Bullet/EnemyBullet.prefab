@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contactLayers:
     serializedVersion: 2
-    m_Bits: 65
+    m_Bits: 64
 --- !u!50 &831020926980066354
 Rigidbody2D:
   serializedVersion: 4
