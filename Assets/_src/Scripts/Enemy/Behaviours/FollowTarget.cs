@@ -10,7 +10,7 @@ namespace PedroAurelio.PainfulSmile
     {
         [Header("Settings")]
         [SerializeField] private Transform target;
-        [SerializeField] private float minDistanceFromTarget;
+        [SerializeField] private float maxDistanceFromTarget;
         [SerializeField] private bool startLookingAtTarget;
         [SerializeField, Range(0f, 1f)] private float rotationThreshold = 0.1f;
 
@@ -19,21 +19,21 @@ namespace PedroAurelio.PainfulSmile
 
         private void OnValidate()
         {
-            if (minDistanceFromTarget < 0f)
-                minDistanceFromTarget = 0f;
+            if (maxDistanceFromTarget < 0f)
+                maxDistanceFromTarget = 0f;
         }
 
         private void Awake()
         {
             _move = GetComponent<Move>();
             _rotate = GetComponent<Rotate>();
-
-            if (minDistanceFromTarget == 0f)
-                _move.SetMovementInput(true);
         }
 
         private void OnEnable()
         {
+            if (maxDistanceFromTarget == 0f)
+                _move.SetMovementInput(true);
+
             if (startLookingAtTarget)
                 FaceTarget();
         }
@@ -46,12 +46,12 @@ namespace PedroAurelio.PainfulSmile
 
         private void CheckTargetDistance()
         {
-            if (target == null && minDistanceFromTarget == 0f)
+            if (target == null && maxDistanceFromTarget == 0f)
                 return;
             
             var distanceToTarget = Vector2.Distance(target.position, transform.position);
 
-            if (distanceToTarget > minDistanceFromTarget)
+            if (distanceToTarget > maxDistanceFromTarget)
                 _move.SetMovementInput(true);
             else
                 _move.SetMovementInput(false);
