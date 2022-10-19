@@ -17,6 +17,7 @@ namespace PedroAurelio.PainfulSmile
 
         private float _spawnTime;
         private WaitForSeconds _waitForSpawnTime;
+        private Coroutine _spawnCoroutine;
 
         private ObjectPool<Enemy> _enemyPool;
 
@@ -28,7 +29,7 @@ namespace PedroAurelio.PainfulSmile
 
             _waitForSpawnTime = new WaitForSeconds(_spawnTime);
 
-            StartCoroutine(SpawnCoroutine());
+            _spawnCoroutine = StartCoroutine(SpawnCoroutine());
         }
 
         #region Pooling Methods
@@ -62,6 +63,20 @@ namespace PedroAurelio.PainfulSmile
 
                 var enemy = _enemyPool.Get();
             }
+        }
+
+        private void DisableSpawning() => StopCoroutine(_spawnCoroutine);
+
+        protected virtual void OnEnable()
+        {
+            Player.onPlayerDeath += DisableSpawning;
+            ShowGameTime.onEndSession += DisableSpawning;
+        }
+
+        protected void OnDisable()
+        {
+            Player.onPlayerDeath -= DisableSpawning;
+            ShowGameTime.onEndSession -= DisableSpawning;
         }
     }
 }

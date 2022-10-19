@@ -11,11 +11,12 @@ namespace PedroAurelio.PainfulSmile
         [SerializeField] private GameData data;
 
         [Header("General Dependencies")]
+        [SerializeField] private ShowScore score;
+        [SerializeField] private ShowGameTime gameTime;
         [SerializeField] private GameObject panel;
         [SerializeField] private TextMeshProUGUI title;
 
         [Header("Score Dependencies")]
-        [SerializeField] private ShowScore score;
         [SerializeField] private TextMeshProUGUI gameScoreNumber;
         [SerializeField] private TextMeshProUGUI highScoreNumber;
 
@@ -27,22 +28,26 @@ namespace PedroAurelio.PainfulSmile
 
         private void ShowGameLostPanel()
         {
-            Time.timeScale = 0f;
             panel.SetActive(true);
             title.text = lossText;
             title.color = lossColor;
 
             UpdateScores();
+
+            gameTime.gameObject.SetActive(false);
+            score.gameObject.SetActive(false);
         }
 
         private void ShowGameWonPanel()
         {
-            Time.timeScale = 0f;
             panel.SetActive(true);
             title.text = winText;
             title.color = winColor;
 
             UpdateScores();
+            
+            gameTime.gameObject.SetActive(false);
+            score.gameObject.SetActive(false);
         }
 
         private void UpdateScores()
@@ -67,7 +72,6 @@ namespace PedroAurelio.PainfulSmile
         {
             Player.onPlayerDeath -= ShowGameLostPanel;
             ShowGameTime.onEndSession -= ShowGameWonPanel;
-            Time.timeScale = 1f;
         }
     }
 }

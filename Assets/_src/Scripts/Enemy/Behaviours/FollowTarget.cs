@@ -7,10 +7,9 @@ namespace PedroAurelio.PainfulSmile
     [RequireComponent(typeof(Enemy))]
     [RequireComponent(typeof(Move))]
     [RequireComponent(typeof(Rotate))]
-    public class FollowTarget : MonoBehaviour
+    public class FollowTarget : BaseBehaviour
     {
         [Header("Settings")]
-        [SerializeField] private Transform target;
         [SerializeField] private float maxDistanceFromTarget;
         [SerializeField] private bool startLookingAtTarget;
         [SerializeField, Range(0f, 1f)] private float rotationThreshold = 0.1f;
@@ -30,10 +29,9 @@ namespace PedroAurelio.PainfulSmile
             _rotate = GetComponent<Rotate>();
         }
 
-        private void OnEnable()
+        protected override void OnEnable()
         {
-            if (target == null)
-                target = GetComponent<Enemy>().Target;
+            base.OnEnable();
 
             if (maxDistanceFromTarget == 0f)
                 _move.SetMovementInput(true);
@@ -53,7 +51,7 @@ namespace PedroAurelio.PainfulSmile
             if (maxDistanceFromTarget == 0f)
                 return;
             
-            var distanceToTarget = Vector2.Distance(target.position, transform.position);
+            var distanceToTarget = Vector2.Distance(_Target.position, transform.position);
 
             if (distanceToTarget > maxDistanceFromTarget)
                 _move.SetMovementInput(true);
@@ -63,7 +61,7 @@ namespace PedroAurelio.PainfulSmile
 
         private void RotateTowardsTarget()
         {            
-            var directionToTarget = target.position - transform.position;
+            var directionToTarget = _Target.position - transform.position;
             var dotProduct = Vector2.Dot(transform.up, directionToTarget.normalized);
 
             if (Mathf.Abs(dotProduct) < rotationThreshold)
@@ -80,12 +78,19 @@ namespace PedroAurelio.PainfulSmile
 
         private void FaceTarget()
         {
-            if (target == null)
+            if (_Target == null)
                 return;
 
-            var directionToTarget = (target.position - transform.position).normalized;
+            var directionToTarget = (_Target.position - transform.position).normalized;
             var angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
+        }
+
+        protected override void DisableBehaviour()
+        {
+            _move.SetMovementInput(false);
+            _rotate.SetRotationDirection(0f);
+            this.enabled = false;
         }
     }
 }

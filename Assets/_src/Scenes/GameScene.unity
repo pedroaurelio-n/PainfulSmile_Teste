@@ -375,9 +375,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data: {fileID: 11400000, guid: f4d6e63e422d4d544a41757399b7fbc8, type: 2}
+  score: {fileID: 551987579}
+  gameTime: {fileID: 461725959}
   panel: {fileID: 891437500}
   title: {fileID: 250229719}
-  score: {fileID: 551987579}
   gameScoreNumber: {fileID: 1454356249}
   highScoreNumber: {fileID: 22130394}
   winText: YOU WIN!
