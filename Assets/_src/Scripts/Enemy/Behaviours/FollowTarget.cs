@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace PedroAurelio.PainfulSmile
 {
+    [RequireComponent(typeof(Enemy))]
     [RequireComponent(typeof(Move))]
     [RequireComponent(typeof(Rotate))]
     public class FollowTarget : MonoBehaviour
@@ -31,6 +32,9 @@ namespace PedroAurelio.PainfulSmile
 
         private void OnEnable()
         {
+            if (target == null)
+                target = GetComponent<Enemy>().Target;
+
             if (maxDistanceFromTarget == 0f)
                 _move.SetMovementInput(true);
 
@@ -46,7 +50,7 @@ namespace PedroAurelio.PainfulSmile
 
         private void CheckTargetDistance()
         {
-            if (target == null && maxDistanceFromTarget == 0f)
+            if (maxDistanceFromTarget == 0f)
                 return;
             
             var distanceToTarget = Vector2.Distance(target.position, transform.position);
@@ -58,10 +62,7 @@ namespace PedroAurelio.PainfulSmile
         }
 
         private void RotateTowardsTarget()
-        {
-            if (target == null)
-                return;
-            
+        {            
             var directionToTarget = target.position - transform.position;
             var dotProduct = Vector2.Dot(transform.up, directionToTarget.normalized);
 
@@ -79,7 +80,10 @@ namespace PedroAurelio.PainfulSmile
 
         private void FaceTarget()
         {
-            var directionToTarget = target.position - transform.position;
+            if (target == null)
+                return;
+
+            var directionToTarget = (target.position - transform.position).normalized;
             var angle = Mathf.Atan2(directionToTarget.y, directionToTarget.x) * Mathf.Rad2Deg;
             transform.rotation = Quaternion.Euler(0f, 0f, angle);
         }

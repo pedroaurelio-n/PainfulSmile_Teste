@@ -22,5 +22,5 @@ MonoBehaviour:
   MissAngleOpening: 0
   NeedInput: 1
   IsAiming: 1
-  BulletSpeed: 6
-  FireRate: 1.9
+  BulletSpeed: 5
+  FireRate: 2
