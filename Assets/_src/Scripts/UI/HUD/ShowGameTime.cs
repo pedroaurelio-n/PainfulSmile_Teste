@@ -9,6 +9,9 @@ namespace PedroAurelio.PainfulSmile
     {
         public delegate void EndSession();
         public static event EndSession onEndSession;
+        
+        [Header("Game Data")]
+        [SerializeField] private GameData data;
 
         [Header("Dependencies")]
         [SerializeField] private TextMeshProUGUI timeNumber;
@@ -16,7 +19,7 @@ namespace PedroAurelio.PainfulSmile
         private float _timeRemaining;
         private bool _hasSessionEnded;
 
-        private void Awake() => _timeRemaining = 120f;
+        private void Awake() => _timeRemaining = data.GameDuration;
 
         private void Update()
         {

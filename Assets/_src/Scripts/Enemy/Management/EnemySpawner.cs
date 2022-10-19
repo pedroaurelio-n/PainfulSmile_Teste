@@ -7,6 +7,9 @@ namespace PedroAurelio.PainfulSmile
 {
     public class EnemySpawner : MonoBehaviour
     {
+        [Header("Game Data")]
+        [SerializeField] private GameData data;
+        
         [Header("Dependencies")]
         [SerializeField] private Transform target;
         [SerializeField] private List<Enemy> enemyPrefabs;
@@ -21,7 +24,7 @@ namespace PedroAurelio.PainfulSmile
         {
             _enemyPool = new ObjectPool<Enemy>(OnCreateEnemy, OnGetEnemy, OnReleaseEnemy);
 
-            _spawnTime = 4f;
+            _spawnTime = data.EnemySpawnTime;
 
             _waitForSpawnTime = new WaitForSeconds(_spawnTime);
 
