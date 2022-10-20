@@ -22,7 +22,7 @@ namespace PedroAurelio.PainfulSmile
             scoreNumber.text = _currentScore.ToString();
         }
         
-        private void OnEnable() => Enemy.onEnemyDefeated += AddScore;
-        private void OnDisable() => Enemy.onEnemyDefeated -= AddScore;
+        private void OnEnable() => Enemy.onAddScore += AddScore;
+        private void OnDisable() => Enemy.onAddScore -= AddScore;
     }
 }

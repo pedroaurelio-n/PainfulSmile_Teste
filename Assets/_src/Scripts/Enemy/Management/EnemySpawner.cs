@@ -14,6 +14,9 @@ namespace PedroAurelio.PainfulSmile
         [SerializeField] private List<Enemy> enemyPrefabs;
         [SerializeField] private List<Transform> spawnPositions;
 
+        [Header("Settings")]
+        [SerializeField] private int maxActiveEnemies;
+
         private float _spawnTime;
         private WaitForSeconds _waitForSpawnTime;
         private Coroutine _spawnCoroutine;
@@ -21,7 +24,6 @@ namespace PedroAurelio.PainfulSmile
         private void Awake()
         {
             _spawnTime = data.EnemySpawnTime;
-
             _waitForSpawnTime = new WaitForSeconds(_spawnTime);
 
             _spawnCoroutine = StartCoroutine(SpawnCoroutine());
@@ -32,13 +34,20 @@ namespace PedroAurelio.PainfulSmile
             while (true)
             {
                 yield return _waitForSpawnTime;
+                
+                yield return new WaitUntil(() => Enemy.ActiveCount < maxActiveEnemies);
 
-                var randomSpawn = spawnPositions[Random.Range(0, spawnPositions.Count)];
-                var randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
-
-                var enemy = Instantiate(randomEnemy, randomSpawn.position, transform.rotation, transform);
-                enemy.Target = target;
+                SpawnEnemy();
             }
+        }
+
+        private void SpawnEnemy()
+        {
+            var randomSpawn = spawnPositions[Random.Range(0, spawnPositions.Count)];
+            var randomEnemy = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+
+            var enemy = Instantiate(randomEnemy, randomSpawn.position, transform.rotation, transform);
+            enemy.Target = target;
         }
 
         private void DisableSpawning() => StopCoroutine(_spawnCoroutine);
