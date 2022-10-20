@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PedroAurelio.PainfulSmile
 {
+    [RequireComponent(typeof(SpriteRenderer))]
     public class ShipAnimation : MonoBehaviour
     {
         [Header("Dependencies")]
@@ -45,7 +44,7 @@ namespace PedroAurelio.PainfulSmile
             if (currentHealth <= 0f)
             {
                 deathParticles.transform.SetParent(null);
-                deathParticles.gameObject.SetActive(true);
+                deathParticles.Play();
             }
         }
     }

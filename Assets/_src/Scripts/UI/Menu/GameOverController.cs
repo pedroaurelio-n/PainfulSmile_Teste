@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
@@ -26,26 +24,26 @@ namespace PedroAurelio.PainfulSmile
         [SerializeField] private string lossText;
         [SerializeField] private Color lossColor;
 
-        private void ShowGameLostPanel()
+        private void GameWon() => ShowGameOverPanel(true);
+        private void GameLost() => ShowGameOverPanel(false);
+
+        private void ShowGameOverPanel(bool gameWon)
         {
             panel.SetActive(true);
-            title.text = lossText;
-            title.color = lossColor;
+
+            if (gameWon)
+            {
+                title.text = winText;
+                title.color = winColor;
+            }
+            else
+            {
+                title.text = lossText;
+                title.color = lossColor;
+            }
 
             UpdateScores();
 
-            gameTime.gameObject.SetActive(false);
-            score.gameObject.SetActive(false);
-        }
-
-        private void ShowGameWonPanel()
-        {
-            panel.SetActive(true);
-            title.text = winText;
-            title.color = winColor;
-
-            UpdateScores();
-            
             gameTime.gameObject.SetActive(false);
             score.gameObject.SetActive(false);
         }
@@ -55,7 +53,7 @@ namespace PedroAurelio.PainfulSmile
             highScoreNumber.text = data.HighScore.ToString("00");
             gameScoreNumber.text = score.CurrentScore.ToString("00");
 
-            if (score.CurrentScore > 0f)
+            if (score.CurrentScore > data.HighScore)
             {
                 data.HighScore = score.CurrentScore;
                 highScoreNumber.text = gameScoreNumber.text;
@@ -64,14 +62,14 @@ namespace PedroAurelio.PainfulSmile
 
         private void OnEnable()
         {
-            Player.onPlayerDeath += ShowGameLostPanel;
-            ShowGameTime.onEndSession += ShowGameWonPanel;
+            Player.onPlayerDeath += GameLost;
+            ShowGameTime.onEndSession += GameWon;
         }
 
         private void OnDisable()
         {
-            Player.onPlayerDeath -= ShowGameLostPanel;
-            ShowGameTime.onEndSession -= ShowGameWonPanel;
+            Player.onPlayerDeath -= GameLost;
+            ShowGameTime.onEndSession -= GameWon;
         }
     }
 }

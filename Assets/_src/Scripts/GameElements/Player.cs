@@ -1,9 +1,9 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PedroAurelio.PainfulSmile
 {
+    [RequireComponent(typeof(PlayerInput))]
+    [RequireComponent(typeof(Collider2D))]
     public class Player : MonoBehaviour, IKillable
     {
         public delegate void PlayerDeath();

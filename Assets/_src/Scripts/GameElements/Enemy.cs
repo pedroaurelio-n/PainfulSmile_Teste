@@ -8,20 +8,19 @@ namespace PedroAurelio.PainfulSmile
         public delegate void AddScore(int score);
         public static event AddScore onAddScore;
 
-        public static int ActiveCount => _enemyInstances.Count;
-        private static List<Enemy> _enemyInstances = new List<Enemy>();
+        public static List<Enemy> EnemyInstances { get; set; } = new List<Enemy>();
 
         public Transform Target { get; set; }
 
         [Header("Settings")]
         [SerializeField] private int scoreOnDefeat;
 
-        private void Awake() => _enemyInstances.Add(this);
+        private void Awake() => EnemyInstances.Add(this);
 
         public void Die()
         {
             onAddScore?.Invoke(scoreOnDefeat);
-            _enemyInstances.Remove(this);
+            EnemyInstances.Remove(this);
             Destroy(gameObject);
         }
     }

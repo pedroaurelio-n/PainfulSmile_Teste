@@ -1,9 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PedroAurelio.PainfulSmile
 {
+    [RequireComponent(typeof(Enemy))]
     public abstract class BaseBehaviour : MonoBehaviour
     {
         [SerializeField] protected Transform _Target;

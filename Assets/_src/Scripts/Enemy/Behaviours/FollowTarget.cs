@@ -1,10 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PedroAurelio.PainfulSmile
 {
-    [RequireComponent(typeof(Enemy))]
     [RequireComponent(typeof(Move))]
     [RequireComponent(typeof(Rotate))]
     public class FollowTarget : BaseBehaviour
@@ -61,10 +58,8 @@ namespace PedroAurelio.PainfulSmile
             
             var distanceToTarget = Vector2.Distance(_Target.position, transform.position);
 
-            if (distanceToTarget > maxDistanceFromTarget)
-                _move.SetMovementInput(true);
-            else
-                _move.SetMovementInput(false);
+            var willMove = distanceToTarget > maxDistanceFromTarget ? true : false;
+            _move.SetMovementInput(willMove);
         }
 
         private void RotateTowardsTarget()
@@ -81,10 +76,8 @@ namespace PedroAurelio.PainfulSmile
                 return;
             }
 
-            if (dotProduct >= 0f)
-                _rotate.SetRotationDirection(RotationDirection.Left);
-            else
-                _rotate.SetRotationDirection(RotationDirection.Right);
+            var rotationDirection = dotProduct >= 0f ? RotationDirection.Left : RotationDirection.Right;
+            _rotate.SetRotationDirection(rotationDirection);
         }
 
         private void FaceTarget()

@@ -23,4 +23,4 @@ MonoBehaviour:
   NeedInput: 1
   IsAiming: 1
   BulletSpeed: 7
-  FireRate: 2.8
+  FireRate: 3

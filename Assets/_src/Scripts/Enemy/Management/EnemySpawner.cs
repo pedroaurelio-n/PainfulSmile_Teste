@@ -35,7 +35,7 @@ namespace PedroAurelio.PainfulSmile
             {
                 yield return _waitForSpawnTime;
                 
-                yield return new WaitUntil(() => Enemy.ActiveCount < maxActiveEnemies);
+                yield return new WaitUntil(() => Enemy.EnemyInstances.Count < maxActiveEnemies);
 
                 SpawnEnemy();
             }
@@ -62,6 +62,8 @@ namespace PedroAurelio.PainfulSmile
         {
             Player.onPlayerDeath -= DisableSpawning;
             ShowGameTime.onEndSession -= DisableSpawning;
+
+            Enemy.EnemyInstances.Clear();
         }
     }
 }

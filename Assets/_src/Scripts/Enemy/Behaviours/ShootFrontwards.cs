@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace PedroAurelio.PainfulSmile
@@ -18,7 +16,12 @@ namespace PedroAurelio.PainfulSmile
                 minDistanceToShoot = 0f;
         }
 
-        private void Awake() => _shoot = GetComponentInChildren<ShootBullets>();
+        private void Awake()
+        {
+            _shoot = GetComponentInChildren<ShootBullets>();
+            if (_shoot == null)
+                Debug.LogError($"Enemy doesn't have a child with ShootBullets component.");
+        }
 
         protected override void OnEnable()
         {
@@ -26,8 +29,6 @@ namespace PedroAurelio.PainfulSmile
 
             if (minDistanceToShoot == 0f)
                 _shoot.SetShootInput(true);
-            else
-                _shoot.SetShootInput(false);
         }
 
         private void Update() => CheckForShotDistance();
@@ -39,10 +40,8 @@ namespace PedroAurelio.PainfulSmile
 
             var distanceToTarget = Vector2.Distance(_Target.position, transform.position);
 
-            if (distanceToTarget <= minDistanceToShoot)
-                _shoot.SetShootInput(true);
-            else
-                _shoot.SetShootInput(false);
+            var willShoot = distanceToTarget <= minDistanceToShoot ? true : false;
+            _shoot.SetShootInput(willShoot);
         }
 
         protected override void DisableBehaviour()

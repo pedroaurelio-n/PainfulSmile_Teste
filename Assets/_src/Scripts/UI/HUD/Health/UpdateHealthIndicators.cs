@@ -9,12 +9,11 @@ namespace PedroAurelio.PainfulSmile
         
         private static HealthIndicator _indicator;
         private static Transform _canvasTransform;
-        private static List<HealthIndicator> _indicatorList;
+        private static List<HealthIndicator> _indicatorList = new List<HealthIndicator>();
 
         private void Awake()
-        {            
+        {
             _indicator = indicatorPrefab;
-            _indicatorList = new List<HealthIndicator>();
             _canvasTransform = transform;
         }
 
@@ -44,7 +43,5 @@ namespace PedroAurelio.PainfulSmile
             if (_indicatorList.Contains(indicator))
                 _indicatorList.Remove(indicator);
         }
-
-        private void OnDisable() => _indicatorList.Clear();
     }
 }

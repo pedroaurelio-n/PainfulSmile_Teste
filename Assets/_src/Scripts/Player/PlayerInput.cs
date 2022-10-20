@@ -27,17 +27,7 @@ namespace PedroAurelio.PainfulSmile
             {
                 _controls = new PlayerControls();
 
-                _controls.Gameplay.Move.performed += _move.SetMovementInput;
-                _controls.Gameplay.Move.canceled += _move.SetMovementInput;
-
-                _controls.Gameplay.Rotate.performed += _rotate.SetRotationDirection;
-                _controls.Gameplay.Rotate.canceled += _rotate.SetRotationDirection;
-
-                _controls.Gameplay.ShootNormal.performed += _weapon.FireNormalShot;
-                _controls.Gameplay.ShootNormal.canceled += _weapon.FireNormalShot;
-
-                _controls.Gameplay.ShootSpecial.performed += _weapon.FireSpecialShot;
-                _controls.Gameplay.ShootSpecial.canceled += _weapon.FireSpecialShot;
+                SubscribeToInputEvents();
 
                 _controls.Enable();
             }
@@ -49,6 +39,28 @@ namespace PedroAurelio.PainfulSmile
             _weapon.DisableAllShots();
             _rotate.SetRotationDirection(0f);
             
+            UnsubscribeFromInputEvents();
+            
+            _controls.Disable();
+        }
+
+        private void SubscribeToInputEvents()
+        {
+            _controls.Gameplay.Move.performed += _move.SetMovementInput;
+            _controls.Gameplay.Move.canceled += _move.SetMovementInput;
+
+            _controls.Gameplay.Rotate.performed += _rotate.SetRotationDirection;
+            _controls.Gameplay.Rotate.canceled += _rotate.SetRotationDirection;
+
+            _controls.Gameplay.ShootNormal.performed += _weapon.FireNormalShot;
+            _controls.Gameplay.ShootNormal.canceled += _weapon.FireNormalShot;
+
+            _controls.Gameplay.ShootSpecial.performed += _weapon.FireSpecialShot;
+            _controls.Gameplay.ShootSpecial.canceled += _weapon.FireSpecialShot;
+        }
+
+        private void UnsubscribeFromInputEvents()
+        {
             _controls.Gameplay.Move.performed -= _move.SetMovementInput;
             _controls.Gameplay.Move.canceled -= _move.SetMovementInput;
 
@@ -60,8 +72,6 @@ namespace PedroAurelio.PainfulSmile
 
             _controls.Gameplay.ShootSpecial.performed -= _weapon.FireSpecialShot;
             _controls.Gameplay.ShootSpecial.canceled -= _weapon.FireSpecialShot;
-            
-            _controls.Disable();
         }
     }
 }
