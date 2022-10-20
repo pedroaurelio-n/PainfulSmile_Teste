@@ -9,6 +9,7 @@ namespace PedroAurelio.PainfulSmile
         [Header("Dependencies")]
         [SerializeField] private ShootingPattern defaultPattern;
         [SerializeField] private Transform spawnPosition;
+        [SerializeField] private ParticleSystem shootParticles;
         [SerializeField] private Transform dynamic;
 
         [Header("Settings")]
@@ -28,9 +29,6 @@ namespace PedroAurelio.PainfulSmile
 
             if (spawnPosition == null)
                 spawnPosition = transform;
-
-            // if (dynamic == null)
-            //     dynamic = LevelDependencies.Dynamic;
         }
 
         private void Start()
@@ -113,6 +111,7 @@ namespace PedroAurelio.PainfulSmile
                 }
             }
 
+            shootParticles.Play();
             _fireTime = _pattern.FireRate;
         }
 

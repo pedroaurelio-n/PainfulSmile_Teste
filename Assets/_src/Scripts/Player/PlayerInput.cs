@@ -3,13 +3,14 @@ using UnityEngine;
 namespace PedroAurelio.PainfulSmile
 {
     [RequireComponent(typeof(Player))]
+    [RequireComponent(typeof(PlayerWeaponHandler))]
     [RequireComponent(typeof(Move))]
     [RequireComponent(typeof(Rotate))]
     public class PlayerInput : MonoBehaviour
     {
         private Move _move;
         private Rotate _rotate;
-        private ShootBullets _shoot;
+        private PlayerWeaponHandler _weapon;
 
         private PlayerControls _controls;
 
@@ -17,7 +18,7 @@ namespace PedroAurelio.PainfulSmile
         {
             _move = GetComponent<Move>();
             _rotate = GetComponent<Rotate>();
-            _shoot = GetComponentInChildren<ShootBullets>();
+            _weapon = GetComponent<PlayerWeaponHandler>();
         }
 
         private void OnEnable()
@@ -32,8 +33,11 @@ namespace PedroAurelio.PainfulSmile
                 _controls.Gameplay.Rotate.performed += _rotate.SetRotationDirection;
                 _controls.Gameplay.Rotate.canceled += _rotate.SetRotationDirection;
 
-                _controls.Gameplay.Shoot.performed += _shoot.SetShootInput;
-                _controls.Gameplay.Shoot.canceled += _shoot.SetShootInput;
+                _controls.Gameplay.ShootNormal.performed += _weapon.FireNormalShot;
+                _controls.Gameplay.ShootNormal.canceled += _weapon.FireNormalShot;
+
+                _controls.Gameplay.ShootSpecial.performed += _weapon.FireSpecialShot;
+                _controls.Gameplay.ShootSpecial.canceled += _weapon.FireSpecialShot;
 
                 _controls.Enable();
             }
@@ -42,7 +46,7 @@ namespace PedroAurelio.PainfulSmile
         private void OnDisable()
         {
             _move.SetMovementInput(false);
-            _shoot.SetShootInput(false);
+            _weapon.DisableAllShots();
             _rotate.SetRotationDirection(0f);
             
             _controls.Gameplay.Move.performed -= _move.SetMovementInput;
@@ -51,8 +55,11 @@ namespace PedroAurelio.PainfulSmile
             _controls.Gameplay.Rotate.performed -= _rotate.SetRotationDirection;
             _controls.Gameplay.Rotate.canceled -= _rotate.SetRotationDirection;
 
-            _controls.Gameplay.Shoot.performed -= _shoot.SetShootInput;
-            _controls.Gameplay.Shoot.canceled -= _shoot.SetShootInput;
+            _controls.Gameplay.ShootNormal.performed -= _weapon.FireNormalShot;
+            _controls.Gameplay.ShootNormal.canceled -= _weapon.FireNormalShot;
+
+            _controls.Gameplay.ShootSpecial.performed -= _weapon.FireSpecialShot;
+            _controls.Gameplay.ShootSpecial.canceled -= _weapon.FireSpecialShot;
             
             _controls.Disable();
         }

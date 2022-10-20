@@ -48,9 +48,18 @@ namespace PedroAurelio.PainfulSmile
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Shoot"",
+                    ""name"": ""ShootNormal"",
                     ""type"": ""Button"",
                     ""id"": ""0f9bd862-a6b4-4059-aa95-fa78a81b4717"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ShootSpecial"",
+                    ""type"": ""Button"",
+                    ""id"": ""9506473b-4f7f-4a6b-adb9-e9b6e5aa0c8c"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -131,7 +140,18 @@ namespace PedroAurelio.PainfulSmile
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Shoot"",
+                    ""action"": ""ShootNormal"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""13a8432c-53c9-4df2-b1f2-69e3f2c8b0bf"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ShootSpecial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -144,7 +164,8 @@ namespace PedroAurelio.PainfulSmile
             m_Gameplay = asset.FindActionMap("Gameplay", throwIfNotFound: true);
             m_Gameplay_Move = m_Gameplay.FindAction("Move", throwIfNotFound: true);
             m_Gameplay_Rotate = m_Gameplay.FindAction("Rotate", throwIfNotFound: true);
-            m_Gameplay_Shoot = m_Gameplay.FindAction("Shoot", throwIfNotFound: true);
+            m_Gameplay_ShootNormal = m_Gameplay.FindAction("ShootNormal", throwIfNotFound: true);
+            m_Gameplay_ShootSpecial = m_Gameplay.FindAction("ShootSpecial", throwIfNotFound: true);
         }
 
         public void Dispose()
@@ -206,14 +227,16 @@ namespace PedroAurelio.PainfulSmile
         private IGameplayActions m_GameplayActionsCallbackInterface;
         private readonly InputAction m_Gameplay_Move;
         private readonly InputAction m_Gameplay_Rotate;
-        private readonly InputAction m_Gameplay_Shoot;
+        private readonly InputAction m_Gameplay_ShootNormal;
+        private readonly InputAction m_Gameplay_ShootSpecial;
         public struct GameplayActions
         {
             private @PlayerControls m_Wrapper;
             public GameplayActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
             public InputAction @Move => m_Wrapper.m_Gameplay_Move;
             public InputAction @Rotate => m_Wrapper.m_Gameplay_Rotate;
-            public InputAction @Shoot => m_Wrapper.m_Gameplay_Shoot;
+            public InputAction @ShootNormal => m_Wrapper.m_Gameplay_ShootNormal;
+            public InputAction @ShootSpecial => m_Wrapper.m_Gameplay_ShootSpecial;
             public InputActionMap Get() { return m_Wrapper.m_Gameplay; }
             public void Enable() { Get().Enable(); }
             public void Disable() { Get().Disable(); }
@@ -229,9 +252,12 @@ namespace PedroAurelio.PainfulSmile
                     @Rotate.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
                     @Rotate.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
                     @Rotate.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnRotate;
-                    @Shoot.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
-                    @Shoot.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
-                    @Shoot.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShoot;
+                    @ShootNormal.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShootNormal;
+                    @ShootNormal.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShootNormal;
+                    @ShootNormal.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShootNormal;
+                    @ShootSpecial.started -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShootSpecial;
+                    @ShootSpecial.performed -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShootSpecial;
+                    @ShootSpecial.canceled -= m_Wrapper.m_GameplayActionsCallbackInterface.OnShootSpecial;
                 }
                 m_Wrapper.m_GameplayActionsCallbackInterface = instance;
                 if (instance != null)
@@ -242,9 +268,12 @@ namespace PedroAurelio.PainfulSmile
                     @Rotate.started += instance.OnRotate;
                     @Rotate.performed += instance.OnRotate;
                     @Rotate.canceled += instance.OnRotate;
-                    @Shoot.started += instance.OnShoot;
-                    @Shoot.performed += instance.OnShoot;
-                    @Shoot.canceled += instance.OnShoot;
+                    @ShootNormal.started += instance.OnShootNormal;
+                    @ShootNormal.performed += instance.OnShootNormal;
+                    @ShootNormal.canceled += instance.OnShootNormal;
+                    @ShootSpecial.started += instance.OnShootSpecial;
+                    @ShootSpecial.performed += instance.OnShootSpecial;
+                    @ShootSpecial.canceled += instance.OnShootSpecial;
                 }
             }
         }
@@ -253,7 +282,8 @@ namespace PedroAurelio.PainfulSmile
         {
             void OnMove(InputAction.CallbackContext context);
             void OnRotate(InputAction.CallbackContext context);
-            void OnShoot(InputAction.CallbackContext context);
+            void OnShootNormal(InputAction.CallbackContext context);
+            void OnShootSpecial(InputAction.CallbackContext context);
         }
     }
 }

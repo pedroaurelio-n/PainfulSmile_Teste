@@ -24,9 +24,18 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "Shoot",
+                    "name": "ShootNormal",
                     "type": "Button",
                     "id": "0f9bd862-a6b4-4059-aa95-fa78a81b4717",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ShootSpecial",
+                    "type": "Button",
+                    "id": "9506473b-4f7f-4a6b-adb9-e9b6e5aa0c8c",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -107,7 +116,18 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "ShootNormal",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "13a8432c-53c9-4df2-b1f2-69e3f2c8b0bf",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ShootSpecial",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
