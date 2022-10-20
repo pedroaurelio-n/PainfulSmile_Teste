@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 1680645309400426900}
   - component: {fileID: 831020926980066354}
   - component: {fileID: 831020926980066365}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyBullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -162,7 +162,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee97f90f2dd8c954cae614aee0b9a5f6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lifeTime: 4
+  lifeTime: 9
 --- !u!114 &1680645309400426900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contactLayers:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 320
 --- !u!50 &831020926980066354
 Rigidbody2D:
   serializedVersion: 4
