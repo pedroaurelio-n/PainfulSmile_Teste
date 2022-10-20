@@ -41,6 +41,10 @@ namespace PedroAurelio.PainfulSmile
 
         private void OnDisable()
         {
+            _move.SetMovementInput(false);
+            _shoot.SetShootInput(false);
+            _rotate.SetRotationDirection(0f);
+            
             _controls.Gameplay.Move.performed -= _move.SetMovementInput;
             _controls.Gameplay.Move.canceled -= _move.SetMovementInput;
 

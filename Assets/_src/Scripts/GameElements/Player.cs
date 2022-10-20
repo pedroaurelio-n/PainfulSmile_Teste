@@ -14,5 +14,14 @@ namespace PedroAurelio.PainfulSmile
             onPlayerDeath?.Invoke();
             gameObject.SetActive(false);
         }
+
+        private void DisablePlayerCollisionAndInput()
+        {
+            GetComponent<PlayerInput>().enabled = false;
+            GetComponent<Collider2D>().enabled = false;
+        }
+
+        private void OnEnable() => ShowGameTime.onEndSession += DisablePlayerCollisionAndInput;
+        private void OnDisable() => ShowGameTime.onEndSession -= DisablePlayerCollisionAndInput;
     }
 }

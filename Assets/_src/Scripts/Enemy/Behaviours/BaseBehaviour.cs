@@ -7,14 +7,17 @@ namespace PedroAurelio.PainfulSmile
     public abstract class BaseBehaviour : MonoBehaviour
     {
         [SerializeField] protected Transform _Target;
+
+        protected virtual void Start()
+        {
+            if (_Target == null)
+                _Target = GetComponent<Enemy>().Target;
+        }
         
         protected abstract void DisableBehaviour();
 
         protected virtual void OnEnable()
         {
-            if (_Target == null)
-                _Target = GetComponent<Enemy>().Target;
-
             Player.onPlayerDeath += DisableBehaviour;
             ShowGameTime.onEndSession += DisableBehaviour;
         }

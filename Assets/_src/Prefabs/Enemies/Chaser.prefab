@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 5564911130086545483}
   - component: {fileID: 5564911130086545486}
   - component: {fileID: 5564911130086545526}
+  - component: {fileID: 588072502387785871}
   - component: {fileID: 5564911130086545481}
   - component: {fileID: 5564911130086545527}
   m_Layer: 7
@@ -65,7 +66,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ad933aab465dd479495f5ed6ae5266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  _Target: {fileID: 0}
   maxDistanceFromTarget: 0
   startLookingAtTarget: 1
   rotationThreshold: 0.1
@@ -131,7 +132,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5fdf9a341f1dd45bfd06b2c4f75cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 2
+--- !u!114 &588072502387785871
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5564911130086545487}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c770350aa4c21740833bc97e18e243f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0.65}
 --- !u!50 &5564911130086545481
 Rigidbody2D:
   serializedVersion: 4

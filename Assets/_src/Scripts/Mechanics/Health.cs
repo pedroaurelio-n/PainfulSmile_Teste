@@ -7,6 +7,7 @@ namespace PedroAurelio.PainfulSmile
     public class Health : MonoBehaviour
     {
         public float CurrentHealth => _currentHealth;
+        public float MaxHealth => maxHealth;
 
         [Header("Settings")]
         [SerializeField] private float maxHealth;
@@ -21,10 +22,7 @@ namespace PedroAurelio.PainfulSmile
                 Debug.LogError($"Health component needs reference to an IKillable in the same object.");
         }
 
-        private void OnEnable()
-        {
-            _currentHealth = maxHealth;
-        }
+        private void OnEnable() => _currentHealth = maxHealth;
 
         public void ModifyHealth(float value)
         {

@@ -29,6 +29,14 @@ namespace PedroAurelio.PainfulSmile
             _rotate = GetComponent<Rotate>();
         }
 
+        protected override void Start()
+        {
+            base.Start();
+            
+            if (startLookingAtTarget)
+                FaceTarget();
+        }
+
         protected override void OnEnable()
         {
             base.OnEnable();
@@ -48,7 +56,7 @@ namespace PedroAurelio.PainfulSmile
 
         private void CheckTargetDistance()
         {
-            if (maxDistanceFromTarget == 0f)
+            if (maxDistanceFromTarget == 0f || _Target == null)
                 return;
             
             var distanceToTarget = Vector2.Distance(_Target.position, transform.position);
@@ -60,7 +68,10 @@ namespace PedroAurelio.PainfulSmile
         }
 
         private void RotateTowardsTarget()
-        {            
+        {
+            if (_Target == null)
+                return;
+
             var directionToTarget = _Target.position - transform.position;
             var dotProduct = Vector2.Dot(transform.up, directionToTarget.normalized);
 

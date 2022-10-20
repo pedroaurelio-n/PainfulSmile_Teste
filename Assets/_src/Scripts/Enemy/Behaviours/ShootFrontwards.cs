@@ -34,7 +34,7 @@ namespace PedroAurelio.PainfulSmile
 
         private void CheckForShotDistance()
         {
-            if (minDistanceToShoot == 0f)
+            if (minDistanceToShoot == 0f || _Target == null)
                 return;
 
             var distanceToTarget = Vector2.Distance(_Target.position, transform.position);

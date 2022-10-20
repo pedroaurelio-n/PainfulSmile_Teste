@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6292391222811795920}
   - component: {fileID: 6292391222811795921}
   - component: {fileID: 6292391222811795934}
+  - component: {fileID: 1153467850259900266}
   - component: {fileID: 6292391222811795935}
   - component: {fileID: 6292391222811795932}
   m_Layer: 7
@@ -67,7 +68,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93ad933aab465dd479495f5ed6ae5266, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  _Target: {fileID: 0}
   maxDistanceFromTarget: 8
   startLookingAtTarget: 1
   rotationThreshold: 0.03
@@ -83,7 +84,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 984b5c7af408f574ba3b1e170626cd86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
+  _Target: {fileID: 0}
   minDistanceToShoot: 8
 --- !u!114 &6292391222811795923
 MonoBehaviour:
@@ -147,7 +148,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b5fdf9a341f1dd45bfd06b2c4f75cb3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 1
+  maxHealth: 3
+--- !u!114 &1153467850259900266
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6292391222811795933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c770350aa4c21740833bc97e18e243f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  offset: {x: 0, y: 0.65}
 --- !u!50 &6292391222811795935
 Rigidbody2D:
   serializedVersion: 4
