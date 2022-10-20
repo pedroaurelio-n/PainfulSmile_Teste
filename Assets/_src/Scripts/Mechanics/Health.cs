@@ -14,12 +14,15 @@ namespace PedroAurelio.PainfulSmile
 
         private float _currentHealth;
 
+        private ShipAnimation _shipAnimation;
         private IKillable _killable;
 
         private void Awake()
         {
             if (!TryGetComponent<IKillable>(out _killable))
                 Debug.LogError($"Health component needs reference to an IKillable in the same object.");
+
+            _shipAnimation = GetComponentInChildren<ShipAnimation>();
         }
 
         private void OnEnable() => _currentHealth = maxHealth;
@@ -27,6 +30,9 @@ namespace PedroAurelio.PainfulSmile
         public void ModifyHealth(float value)
         {
             _currentHealth += value;
+
+            if (_shipAnimation != null)
+                _shipAnimation.UpdateShipSprite(_currentHealth, maxHealth);
 
             if (_currentHealth <= 0)
                 _killable.Die();
